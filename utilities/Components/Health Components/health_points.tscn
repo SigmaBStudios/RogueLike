@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://fnaly4wbnhwf"]
+
+[ext_resource type="Script" path="res://utilities/Components/Health Components/health_points.gd" id="1_iseam"]
+
+[node name="Health Points" type="Node2D"]
+script = ExtResource("1_iseam")
