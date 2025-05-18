@@ -1,20 +1,22 @@
 class_name GameManager extends Node2D
 
-var currentScene
+@onready var world: World = $World
+@onready var gui: GUI = $GUI
+@onready var musicPlayer: AudioStreamPlayer = $AudioStreamPlayer
 
 func _ready() -> void:
 	Global.gameManager = self
-	loadLevel("res://levels/testLevels/pathfindinglevel.tscn")
-
+	if not musicPlayer.playing:
+		musicPlayer.play()
+	loadGui("res://menus/main menu/main_menu.tscn")
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("esc"):
+		gui.loadGui("res://menus/main menu/main_menu.tscn")
 
 func loadLevel(scenePath: String) -> void:
-	if currentScene:
-		currentScene.queue_free()
-		
-	var newScene = load(scenePath).instantiate()
-	add_child(newScene)
-	currentScene = newScene
-		
+	gui.unloadGui()
+	world.loadLevel(scenePath)
 	
 func loadGui(scenePath: String) -> void:
-	pass
+	gui.loadGui(scenePath)
