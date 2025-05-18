@@ -1,0 +1,97 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnd1bqt6tmgj1"]
+
+[ext_resource type="Script" path="res://menus/mainmenu/main_menu.gd" id="1_3n5ma"]
+[ext_resource type="AudioStream" uid="uid://brn3v7yv7uf7m" path="res://assets/Music/MenuMusic/idkman608_3.mp3" id="2_aytaj"]
+
+[node name="MainMenu" type="CanvasLayer"]
+
+[node name="MainMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -91.0
+offset_top = -65.0
+offset_right = -91.0
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3n5ma")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = 99.0
+offset_right = -8.0
+offset_bottom = 99.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="MainMenu/VBoxContainer"]
+layout_mode = 2
+text = "Start"
+
+[node name="OptionsButton" type="Button" parent="MainMenu/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="MainMenu/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="TitleName" type="Label" parent="MainMenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MainMenu"]
+stream = ExtResource("2_aytaj")
+autoplay = true
+mix_target = 1
+
+[node name="BGMainMenu" type="TextureRect" parent="MainMenu"]
+layout_mode = 2
+offset_left = 17.0
+offset_top = 280.0
+offset_right = 947.0
+offset_bottom = 280.0
+
+[node name="OptionsMenu" type="Control" parent="MainMenu"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 95.0
+offset_top = 69.0
+offset_right = 488.0
+offset_bottom = 161.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/OptionsMenu"]
+offset_right = 393.0
+offset_bottom = 92.0
+
+[node name="Label" type="Label" parent="MainMenu/OptionsMenu/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu/OptionsMenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainMenu/OptionsMenu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="volume_slider" type="HSlider" parent="MainMenu/OptionsMenu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+scrollable = false
+
+[node name="fullscreen_checkbox" type="CheckBox" parent="MainMenu/OptionsMenu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="back_button" type="Button" parent="MainMenu/OptionsMenu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Back to Main Menu"
