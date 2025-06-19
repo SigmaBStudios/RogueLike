@@ -16,6 +16,7 @@ func changeState(newState : State) -> void:
 		currentState.exitState()
 	currentState = newState
 	currentState.enterState()
+		
 
 func processPhysics(delta: float) -> void:
 	var newState = currentState.processPhysics(delta)

@@ -1,12 +1,13 @@
-class_name Player extends PhysicsEnity
+class_name Enemy extends PhysicsEnity
 
 @export var speed: float
+@export var stateManager: StateManager
 
-@onready var stateManager: StateManager = $StateManager
+var target: PhysicsEnity
 
 func _init() -> void:
-	super("")
-
+	super("enemy")
+	
 func _ready() -> void:
 	stateManager.initialize(self)
 

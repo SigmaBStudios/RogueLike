@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbje0cw0y0gy6"]
-
-[ext_resource type="Script" path="res://entities/PhysicsEntities/player/States/attack/not_attacking.gd" id="1_vw5yq"]
-
-[node name="notAttacking" type="Node2D"]
-script = ExtResource("1_vw5yq")

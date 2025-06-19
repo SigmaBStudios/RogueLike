@@ -1,0 +1,91 @@
+[gd_scene load_steps=15 format=3 uid="uid://eantyxvqtsvp"]
+
+[ext_resource type="Script" path="res://entities/PhysicsEntities/enemies/enemy.gd" id="1_ihfay"]
+[ext_resource type="PackedScene" uid="uid://fnaly4wbnhwf" path="res://utilities/Components/Health Component/health_component.tscn" id="2_h3212"]
+[ext_resource type="PackedScene" uid="uid://cert0vcaupr07" path="res://utilities/state machine/state_machine.tscn" id="3_j1qeb"]
+[ext_resource type="PackedScene" uid="uid://d2m1cfvio00nm" path="res://utilities/Components/Hitbox Component/hitbox_component.tscn" id="4_aaa53"]
+[ext_resource type="PackedScene" uid="uid://do6o5djrmjhhp" path="res://UI Elements/health bars/health_bar.tscn" id="4_rvj80"]
+[ext_resource type="PackedScene" uid="uid://bk3vrw2l0qroq" path="res://utilities/state machine/States/MoveStates/patrol.tscn" id="4_t6lac"]
+[ext_resource type="PackedScene" uid="uid://bwh8l57nscl0k" path="res://utilities/state machine/States/AttackStates/attack.tscn" id="5_wisi1"]
+[ext_resource type="PackedScene" uid="uid://21te3i02dnhu" path="res://utilities/state machine/States/AttackStates/charge_attack.tscn" id="6_4uh80"]
+[ext_resource type="PackedScene" uid="uid://dropd42ko2su7" path="res://utilities/state machine/state_manager.tscn" id="6_y0mdo"]
+[ext_resource type="PackedScene" uid="uid://cpd4mbft0e73" path="res://utilities/state machine/States/MoveStates/chase.tscn" id="8_1e0ra"]
+[ext_resource type="PackedScene" uid="uid://cg82e1r8ck2jg" path="res://entities/PhysicsEntities/weapon/weapon.tscn" id="10_881g2"]
+[ext_resource type="PackedScene" uid="uid://cm6xw7jnqxf4g" path="res://utilities/Components/Attack Component/attack_component.tscn" id="10_vyxy5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_av5wg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_75oov"]
+radius = 261.174
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("stateManager")]
+script = ExtResource("1_ihfay")
+stateManager = NodePath("StateManager")
+
+[node name="StateManager" parent="." instance=ExtResource("6_y0mdo")]
+
+[node name="StateMachine" parent="StateManager" node_paths=PackedStringArray("startingState") instance=ExtResource("3_j1qeb")]
+startingState = NodePath("Patrol")
+
+[node name="Patrol" parent="StateManager/StateMachine" node_paths=PackedStringArray("chase", "nav", "agroRange", "waitTimer") instance=ExtResource("4_t6lac")]
+chase = NodePath("../Chase")
+nav = NodePath("../../../NavigationAgent2D")
+agroRange = NodePath("../../../Area2D")
+waitTimer = NodePath("../../../NavigatorTimer")
+
+[node name="Chase" parent="StateManager/StateMachine" node_paths=PackedStringArray("patrol", "chargeAttack", "nav", "agroRadius") instance=ExtResource("8_1e0ra")]
+patrol = NodePath("../Patrol")
+chargeAttack = NodePath("../ChargeAttack")
+nav = NodePath("../../../NavigationAgent2D")
+agroRadius = NodePath("../../../Area2D")
+
+[node name="ChargeAttack" parent="StateManager/StateMachine" node_paths=PackedStringArray("attack", "weapon", "chargeTimer") instance=ExtResource("6_4uh80")]
+attack = NodePath("../attack")
+weapon = NodePath("../../../Weapon")
+chargeTimer = NodePath("../../../ChargeTimer")
+
+[node name="attack" parent="StateManager/StateMachine" node_paths=PackedStringArray("notAttacking", "weapon") instance=ExtResource("5_wisi1")]
+notAttacking = NodePath("../Chase")
+weapon = NodePath("../../../Weapon")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_av5wg")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_h3212")]
+maxHealth = 100.0
+health = 100.0
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_aaa53")]
+healthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitboxComponent"]
+visible = false
+shape = SubResource("CircleShape2D_av5wg")
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_rvj80")]
+offset_top = -18.0
+offset_bottom = -14.0
+healthComponent = NodePath("../HealthComponent")
+
+[node name="Weapon" parent="." node_paths=PackedStringArray("attack") instance=ExtResource("10_881g2")]
+attack = NodePath("AttackComponent")
+chargeTime = 1.0
+
+[node name="AttackComponent" parent="Weapon" instance=ExtResource("10_vyxy5")]
+dmg = 10.0
+knockbackForce = 0
+
+[node name="ChargeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="NavigatorTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+debug_enabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_75oov")

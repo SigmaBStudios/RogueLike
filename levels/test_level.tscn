@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://jqant3t12efe"]
+
+[ext_resource type="PackedScene" uid="uid://dopx06yy437aa" path="res://entities/PhysicsEntities/player/player.tscn" id="1_1vnm1"]
+[ext_resource type="PackedScene" uid="uid://eantyxvqtsvp" path="res://entities/PhysicsEntities/enemies/enemy.tscn" id="2_jmeft"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ptjn"]
+size = Vector2(1156, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_50p78"]
+size = Vector2(37.5, 606.5)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_a2o1v"]
+vertices = PackedVector2Array(1094, 606, 58, 606, 58, 42, 1094, 42)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(48, 32, 48, 616, 1104, 616, 1104, 32)])
+
+[node name="testLevel" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(575, 15)
+shape = SubResource("RectangleShape2D_6ptjn")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(575, 636)
+shape = SubResource("RectangleShape2D_6ptjn")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(20.25, 327.75)
+shape = SubResource("RectangleShape2D_50p78")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+position = Vector2(1136, 328)
+shape = SubResource("RectangleShape2D_50p78")
+
+[node name="Player" parent="." instance=ExtResource("1_1vnm1")]
+position = Vector2(327, 285)
+scale = Vector2(3, 3)
+speed = 100.0
+
+[node name="Enemy" parent="." instance=ExtResource("2_jmeft")]
+position = Vector2(699, 285)
+scale = Vector2(3, 3)
+speed = 40.0
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_a2o1v")

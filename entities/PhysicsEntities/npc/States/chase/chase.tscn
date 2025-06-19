@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpd4mbft0e73"]
-
-[ext_resource type="Script" path="res://entities/PhysicsEntities/npc/States/chase/chase.gd" id="1_lrv28"]
-
-[node name="Chase" type="Node2D"]
-script = ExtResource("1_lrv28")

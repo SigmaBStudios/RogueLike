@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bk3vrw2l0qroq"]
-
-[sub_resource type="GDScript" id="GDScript_bxyps"]
-script/source = "class_name Patrol extends State
-"
-
-[node name="Patrol" type="Node2D"]
-script = SubResource("GDScript_bxyps")

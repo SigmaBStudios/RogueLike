@@ -1,0 +1,16 @@
+class_name Walk extends State
+
+@export var idle : State
+	
+func processInput(event : InputEvent) -> State:
+	if !Input.get_vector("left", "right", "up", "down"):
+		return idle
+	return null
+	
+func processPhysics(delta: float) -> State:
+	var direction = Input.get_vector("left", "right", "up", "down")
+	if direction == Vector2.ZERO:
+		return idle
+	parent.velocity = direction * parent.speed
+	parent.move_and_slide()
+	return null

@@ -4,10 +4,14 @@ class_name Weapon extends Node2D
 @onready var animation = $AnimationPlayer
 @onready var weaponSprite: Sprite2D = $Pivot/Sprite2D
 @export var attack: AttackComponent
-var type: int
+@onready var attackRange = $Pivot/ChargeArea/CollisionShape2D
+
+@export var chargeTime: float = 0.0
+var inUse: bool = false
 
 func use(target):
-	weaponSprite.frame = type
+	inUse = true
+	animation.play("attack1")
 	marker.look_at(target)
 	
 	if target.x - target.x < 0:
@@ -16,7 +20,9 @@ func use(target):
 		marker.scale.y = 1
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	var parent = self.get_parent()
-	var other = area.get_parent()
-	if area is HitboxComponent and parent != other and ((parent is Player and other is Enemy) or (parent is Enemy and other is Player)):
+	if area is HitboxComponent:
 		area.damage(attack)
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "attack1":
+		inUse = false
