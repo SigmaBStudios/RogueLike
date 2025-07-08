@@ -4,19 +4,19 @@
 [ext_resource type="PackedScene" uid="uid://r0pyvolq3a0b" path="res://utilities/World manager/door.tscn" id="2_2gkth"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ey5gg"]
-size = Vector2(496, 304)
+size = Vector2(464, 272)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dmufc"]
-size = Vector2(48, 8)
+size = Vector2(32, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t5n6n"]
-size = Vector2(48, 8)
+size = Vector2(32, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jx1hd"]
-size = Vector2(8, 48)
+size = Vector2(8, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_shpxt"]
-size = Vector2(8, 48)
+size = Vector2(8, 32)
 
 [node name="Room" type="Node2D"]
 script = ExtResource("1_1mmao")
@@ -24,43 +24,43 @@ script = ExtResource("1_1mmao")
 [node name="playerDetector" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerDetector"]
-position = Vector2(256, 160)
+position = Vector2(240, 144)
 shape = SubResource("RectangleShape2D_ey5gg")
 
 [node name="DoorUp" parent="." instance=ExtResource("2_2gkth")]
 
 [node name="Marker2D" parent="DoorUp" index="0"]
-position = Vector2(256, -32)
+position = Vector2(240, -32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorUp"]
-position = Vector2(256, 4)
+position = Vector2(240, 4)
 shape = SubResource("RectangleShape2D_dmufc")
 
 [node name="DoorDown" parent="." instance=ExtResource("2_2gkth")]
 
 [node name="Marker2D" parent="DoorDown" index="0"]
-position = Vector2(256, 352)
+position = Vector2(240, 320)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorDown"]
-position = Vector2(256, 316)
+position = Vector2(240, 284)
 shape = SubResource("RectangleShape2D_t5n6n")
 
 [node name="DoorLeft" parent="." instance=ExtResource("2_2gkth")]
 
 [node name="Marker2D" parent="DoorLeft" index="0"]
-position = Vector2(-32, 160)
+position = Vector2(-32, 144)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorLeft"]
-position = Vector2(4, 160)
+position = Vector2(4, 144)
 shape = SubResource("RectangleShape2D_jx1hd")
 
 [node name="DoorRight" parent="." instance=ExtResource("2_2gkth")]
 
 [node name="Marker2D" parent="DoorRight" index="0"]
-position = Vector2(544, 160)
+position = Vector2(512, 144)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorRight"]
-position = Vector2(508, 160)
+position = Vector2(476, 144)
 shape = SubResource("RectangleShape2D_shpxt")
 
 [editable path="DoorUp"]
