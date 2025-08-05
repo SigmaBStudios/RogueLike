@@ -10,8 +10,8 @@ extends Node2D
 var gridSize = Vector2(gridX, gridY)
 var grid = []
 
+var floor : Floor
 var currentRoom: Room
-var player: Player
 
 # 0 up, 1 down, 2 left, 3 right
 var directions = [
@@ -22,24 +22,13 @@ var directions = [
 ]
 
 func _ready():
+	floor = get_parent()
 	_init_grid()
 	generateFloor()
 	renderMap()
-	loadPlayer()
-	loadGui()
-	
-func loadPlayer() -> void:
-	var p := load("res://entities/PhysicsEntities/player/player.tscn")
-	player = p.instantiate()
-	player.global_position = currentRoom.spawnCordinates
-	Global.player = player
-	get_parent().add_child.call_deferred(player)
-	
-func loadGui() -> void:
-	Global.gameManager.loadGui("res://UI Elements/health bars/player_health_bar.tscn")
 	
 func _on_room_change():
-	print("Leaving...")
+	pass
 
 func _init_grid():
 	for y in range(gridY):
@@ -57,6 +46,7 @@ func placeRoom(x: int, y: int):
 	if x >= 0 and x < gridX and y >= 0 and y < gridY:
 		if grid[y][x] == null:
 			var newRoom = load("res://utilities/World manager/room.tscn").instantiate()
+			newRoom.floor = floor
 			newRoom.setPosition(x, y)
 			newRoom.setSpawn(x, y)
 			newRoom.exit.connect(_on_room_change)

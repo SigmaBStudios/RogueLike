@@ -6,10 +6,10 @@ class_name Weapon extends Node2D
 @onready var animation = $swordAnimation
 @onready var charge_animation: AnimationPlayer = $chargeAnimation
 
-@onready var weaponSprite: Sprite2D = $Pivot/weapon_sprite
+@onready var weaponSprite: Sprite2D = $Pivot/Marker2D/weapon_sprite
 @export var attack: AttackComponent
-@onready var attackRange = $Pivot/ChargeArea/CollisionShape2D
-@onready var chargeBar: ProgressBar = $Pivot/ChargeArea/ProgressBar
+@onready var progress_bar: ProgressBar = $Pivot/hitbox/ProgressBar
+
 
 @export var chargeTime: float = 0.0
 var chargeStartTime: int
@@ -20,13 +20,30 @@ var weaponSprites: Dictionary = {
 	2: "res://assets/weapons/swords/rustySword.png"
 }
 
+var attackType: Dictionary = {
+	0: "slash",
+	1: "thrust"
+}
+
+var attackNumber: int = 1
+
 func _ready() -> void:
 	if weaponType != 0:
 		weaponSprite.texture = load(weaponSprites[weaponType])
 
 func use(target) -> void:
 	inUse = true
-	animation.play("attack1")
+	charge_animation.play("set_" + attackType[attack.dmgType])
+	if attack.dmgType == 0:
+		if attackNumber == 1:
+			animation.play("attack_" + attackType[attack.dmgType] + "_" + str(attackNumber))
+			attackNumber += 1
+		elif attackNumber == 2:
+			animation.play("attack_" + attackType[attack.dmgType] + "_" + str(attackNumber))
+			attackNumber -= 1
+	else:
+		animation.play("attack_" + attackType[attack.dmgType] + "_" + str(attackNumber))
+	
 	marker.look_at(target)
 	
 	if get_global_mouse_position().x - target.x < 0:
@@ -38,12 +55,12 @@ func use(target) -> void:
 			
 func charge() -> void:
 	charge_animation.speed_scale = 1 / chargeTime
-	charge_animation.play("charge")
+	charge_animation.play("charge_" + attackType[attack.dmgType])
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area is HitboxComponent:
 		area.damage(attack)
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	if anim_name == "attack1":
+	if anim_name.contains("attack"):
 		inUse = false

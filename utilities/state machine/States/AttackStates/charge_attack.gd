@@ -13,7 +13,7 @@ func enterState() -> void:
 	if chargeTimer:
 		chargeTimer.start(weapon.chargeTime)
 		charging = true
-		weapon.attackRange.visible = true
+		weapon.progress_bar.visible = true
 		parent.hitDirection = parent.target.global_position
 		weapon.marker.look_at(parent.hitDirection)
 		weapon.charge()
@@ -21,7 +21,7 @@ func enterState() -> void:
 func processFrame(delta: float) -> State:
 	if charging:
 		return null
-	weapon.attackRange.visible = false
+	weapon.progress_bar.visible = false
 	return attack
 	
 func _on_timer_timeout():

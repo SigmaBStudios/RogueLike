@@ -1,6 +1,6 @@
 class_name PhysicsEnity extends CharacterBody2D
 
-signal removed
+signal removed(entity: PhysicsEnity)
 
 var id: String
 

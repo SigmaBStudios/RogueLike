@@ -137,7 +137,7 @@ attack = NodePath("AttackComponent")
 chargeTime = 0.5
 
 [node name="AttackComponent" parent="Weapon" instance=ExtResource("10_vyxy5")]
-dmg = 13.0
+dmgType = 1
 knockbackForce = 0
 
 [node name="ChargeTimer" type="Timer" parent="."]

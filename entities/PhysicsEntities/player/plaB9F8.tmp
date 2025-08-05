@@ -1,0 +1,157 @@
+[gd_scene load_steps=19 format=3 uid="uid://dopx06yy437aa"]
+
+[ext_resource type="Script" path="res://entities/PhysicsEntities/player/player.gd" id="1_xxrmx"]
+[ext_resource type="PackedScene" uid="uid://d2m1cfvio00nm" path="res://utilities/Components/Hitbox Component/hitbox_component.tscn" id="2_u6h0l"]
+[ext_resource type="PackedScene" uid="uid://dropd42ko2su7" path="res://utilities/state machine/state_manager.tscn" id="3_cmj32"]
+[ext_resource type="PackedScene" uid="uid://cert0vcaupr07" path="res://utilities/state machine/state_machine.tscn" id="3_ywb0m"]
+[ext_resource type="PackedScene" uid="uid://divlo1p11l0dq" path="res://utilities/state machine/States/MoveStates/idle.tscn" id="4_8ui45"]
+[ext_resource type="PackedScene" uid="uid://cmj02vkwe0vdd" path="res://utilities/state machine/States/MoveStates/walk.tscn" id="5_kwbrq"]
+[ext_resource type="PackedScene" uid="uid://q1pmi8gip7jh" path="res://utilities/state machine/States/MoveStates/dash.tscn" id="6_b6yub"]
+[ext_resource type="PackedScene" uid="uid://bwh8l57nscl0k" path="res://utilities/state machine/States/AttackStates/attack.tscn" id="6_fwgeh"]
+[ext_resource type="PackedScene" uid="uid://cbje0cw0y0gy6" path="res://utilities/state machine/States/AttackStates/not_attacking.tscn" id="7_u6puw"]
+[ext_resource type="PackedScene" uid="uid://cg82e1r8ck2jg" path="res://entities/PhysicsEntities/weapon/weapon.tscn" id="8_msk5v"]
+[ext_resource type="PackedScene" uid="uid://cm6xw7jnqxf4g" path="res://utilities/Components/Attack Component/attack_component.tscn" id="9_s711v"]
+[ext_resource type="PackedScene" uid="uid://fnaly4wbnhwf" path="res://utilities/Components/Health Components/health_component.tscn" id="11_8614u"]
+[ext_resource type="Texture2D" uid="uid://bi407vwvh6h5i" path="res://assets/player sprites/knight.png" id="11_sfaie"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ey0pn"]
+radius = 6.0
+height = 16.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c4gvl"]
+radius = 7.0
+height = 28.0
+
+[sub_resource type="Animation" id="Animation_tvxjm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_wnj5c"]
+resource_name = "walk"
+length = 0.533337
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.266667, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.191986, -0.191986]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eiaup"]
+_data = {
+"RESET": SubResource("Animation_tvxjm"),
+"walk": SubResource("Animation_wnj5c")
+}
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hitbox_component", "health_component", "animation_player")]
+y_sort_enabled = true
+motion_mode = 1
+script = ExtResource("1_xxrmx")
+speed = 100.0
+dashSpeed = 150.0
+hitbox_component = NodePath("HitboxComponent")
+health_component = NodePath("HealthComponent")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="StateManager" parent="." instance=ExtResource("3_cmj32")]
+
+[node name="MovementStateMachine" parent="StateManager" node_paths=PackedStringArray("startingState") instance=ExtResource("3_ywb0m")]
+startingState = NodePath("idle")
+
+[node name="idle" parent="StateManager/MovementStateMachine" node_paths=PackedStringArray("walk") instance=ExtResource("4_8ui45")]
+walk = NodePath("../walk")
+animationName = "walk"
+
+[node name="walk" parent="StateManager/MovementStateMachine" node_paths=PackedStringArray("idle", "dash") instance=ExtResource("5_kwbrq")]
+idle = NodePath("../idle")
+dash = NodePath("../dash")
+animationName = "walk"
+
+[node name="dash" parent="StateManager/MovementStateMachine" node_paths=PackedStringArray("walk") instance=ExtResource("6_b6yub")]
+walk = NodePath("../walk")
+
+[node name="StateMachine" parent="StateManager" node_paths=PackedStringArray("startingState") instance=ExtResource("3_ywb0m")]
+startingState = NodePath("notAttacking")
+
+[node name="attack" parent="StateManager/StateMachine" node_paths=PackedStringArray("notAttacking", "weapon") instance=ExtResource("6_fwgeh")]
+notAttacking = NodePath("../notAttacking")
+weapon = NodePath("../../../Weapon")
+
+[node name="notAttacking" parent="StateManager/StateMachine" node_paths=PackedStringArray("attack") instance=ExtResource("7_u6puw")]
+attack = NodePath("../attack")
+
+[node name="Weapon" parent="." node_paths=PackedStringArray("attack") instance=ExtResource("8_msk5v")]
+weaponType = 1
+attack = NodePath("AttackComponent")
+
+[node name="AttackComponent" parent="Weapon" instance=ExtResource("9_s711v")]
+dmg = 20.0
+knockbackForce = 0
+
+[node name="wallCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("CapsuleShape2D_ey0pn")
+
+[node name="HealthComponent" parent="." instance=ExtResource("11_8614u")]
+maxHealth = 100.0
+health = 100.0
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("2_u6h0l")]
+healthComponent = NodePath("../HealthComponent")
+
+[node name="wallCollision2" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_c4gvl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_eiaup")
+}
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+y_sort_enabled = true
+texture = ExtResource("11_sfaie")
+offset = Vector2(-0.5, 0)
+hframes = 4
+frame = 2

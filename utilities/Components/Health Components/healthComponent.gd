@@ -7,7 +7,7 @@ signal damaged
 
 func updateHealth(damage: float):
 	if health - damage <= 0:
-		get_parent().removed.emit()
+		get_parent().removed.emit(get_parent())
 		get_parent().queue_free()
 	else:
 		health -= damage
