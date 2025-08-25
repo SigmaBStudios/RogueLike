@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://r0pyvolq3a0b" path="res://utilities/World manager/door.tscn" id="2_2gkth"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ey5gg"]
-size = Vector2(464, 272)
+size = Vector2(480, 288)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dmufc"]
 size = Vector2(32, 8)
@@ -28,52 +28,55 @@ position = Vector2(240, 144)
 shape = SubResource("RectangleShape2D_ey5gg")
 
 [node name="DoorUp" parent="." instance=ExtResource("2_2gkth")]
+position = Vector2(0, 1)
 
 [node name="Marker2D" parent="DoorUp" index="0"]
-position = Vector2(240, -32)
+position = Vector2(240, -27)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorUp"]
-position = Vector2(240, 4)
+position = Vector2(240, 26)
 shape = SubResource("RectangleShape2D_dmufc")
 
 [node name="DoorDown" parent="." instance=ExtResource("2_2gkth")]
 
 [node name="Marker2D" parent="DoorDown" index="0"]
-position = Vector2(240, 320)
+position = Vector2(240, 331)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorDown"]
 position = Vector2(240, 284)
 shape = SubResource("RectangleShape2D_t5n6n")
 
 [node name="DoorLeft" parent="." instance=ExtResource("2_2gkth")]
+position = Vector2(0, 31)
 
 [node name="Marker2D" parent="DoorLeft" index="0"]
-position = Vector2(-32, 144)
+position = Vector2(-53, 141)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorLeft"]
-position = Vector2(4, 144)
+position = Vector2(28, 144)
 shape = SubResource("RectangleShape2D_jx1hd")
 
 [node name="DoorRight" parent="." instance=ExtResource("2_2gkth")]
+position = Vector2(0, 31)
 
 [node name="Marker2D" parent="DoorRight" index="0"]
-position = Vector2(512, 144)
+position = Vector2(534, 141)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorRight"]
-position = Vector2(476, 144)
+position = Vector2(452, 145)
 shape = SubResource("RectangleShape2D_shpxt")
 
 [node name="spawnPoint1" type="Marker2D" parent="."]
-position = Vector2(111, 78)
+position = Vector2(144, 144)
 
 [node name="spawnPoint2" type="Marker2D" parent="."]
-position = Vector2(356, 76)
+position = Vector2(337, 144)
 
 [node name="spawnPoint3" type="Marker2D" parent="."]
-position = Vector2(112, 208)
+position = Vector2(145, 208)
 
 [node name="spawnPoint4" type="Marker2D" parent="."]
-position = Vector2(355, 206)
+position = Vector2(336, 208)
 
 [editable path="DoorUp"]
 [editable path="DoorDown"]
