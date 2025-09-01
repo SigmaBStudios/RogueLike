@@ -1,7 +1,12 @@
 class_name Player extends PhysicsEnity
 
+signal flaskUpdate
+
 @export var speed: float = 150
 @export var dashSpeed: float = 800
+@export var maxFlasks: int = 3
+@export var flasks: int = 3
+
 var dashDirection: Vector2 = Vector2.ZERO
 
 @export var hitbox_component: HitboxComponent
@@ -33,3 +38,10 @@ func _process(delta: float) -> void:
 		if player_sprite.scale.x < 0:
 			player_sprite.scale.x *= -1
 	stateManager.processFrame(delta)
+	
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("heal"):
+		if flasks - 1 >= 0:
+			flasks -= 1
+			health_component.updateHealth(-20)
+			flaskUpdate.emit()

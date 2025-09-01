@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://do4pg6erljq5h"]
+[gd_scene load_steps=7 format=3 uid="uid://do4pg6erljq5h"]
 
 [ext_resource type="Script" uid="uid://d0yqqpa6t5kam" path="res://UI Elements/player UI/player_ui.gd" id="1_hsga7"]
 [ext_resource type="Texture2D" uid="uid://baxw0fx0r4k68" path="res://assets/ui sprites/hp_bar.png" id="2_sh6lv"]
@@ -9,6 +9,28 @@ bg_color = Color(0, 0.4, 0.52549, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ceo68"]
 bg_color = Color(0.717647, 0.109804, 0.109804, 1)
+
+[sub_resource type="GDScript" id="GDScript_sh6lv"]
+script/source = "extends HBoxContainer
+
+var empty_flask = load(\"res://assets/ui sprites/flask sprites/flask_0.png\")
+var full_flask = load(\"res://assets/ui sprites/flask sprites/flask_1.png\")
+ 
+var flaskCount: int = Global.player.maxFlasks
+
+func _ready() -> void:
+	for i in range(flaskCount):
+		var flask = TextureRect.new()
+		flask.texture = full_flask
+		add_child(flask)
+
+func _process(delta: float) -> void:
+	var flasks = get_children()
+	var emptyFlaskStart = flaskCount - Global.pla
+	for i in range(flaskCount):
+		
+		
+"
 
 [node name="Player UI" type="CanvasLayer"]
 script = ExtResource("1_hsga7")
@@ -73,6 +95,8 @@ theme_override_constants/margin_right = 25
 [node name="Flasks" type="HBoxContainer" parent="HBoxContainer/HealthBarMargin/VBoxContainer/FlaskMargin"]
 layout_mode = 2
 theme_override_constants/separation = -5
+script = SubResource("GDScript_sh6lv")
+flaskCount = 3
 
 [node name="hotBarMargin" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2

@@ -145,7 +145,7 @@ shape = SubResource("CapsuleShape2D_ey0pn")
 
 [node name="HealthComponent" parent="." instance=ExtResource("11_8614u")]
 maxHealth = 100.0
-health = 100.0
+health = 50.0
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("2_u6h0l")]
 healthComponent = NodePath("../HealthComponent")
@@ -156,7 +156,7 @@ shape = SubResource("CapsuleShape2D_c4gvl")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_eiaup")
+&"": SubResource("AnimationLibrary_eiaup")
 }
 
 [node name="InteractingComponent" parent="." node_paths=PackedStringArray("inventoryComponent") instance=ExtResource("14_s8g0c")]
