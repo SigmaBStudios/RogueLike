@@ -57,7 +57,7 @@ func processFrame(delta: float) -> State:
 func getRandomPoint() -> Vector2:
 	var R = 64
 	var r = R * sqrt(Global.rng.randf())
-	var theta = Global.rng.randf() * 2 * 3 # PI
+	var theta = Global.rng.randf() * 2 * PI # PI
 
 	var x = parent.target.global_position.x + r * cos(theta)
 	var y = parent.target.global_position.y + r * sin(theta)
@@ -69,7 +69,7 @@ func changePos() -> void:
 			nav.target_position = parent.target.global_position
 		else:
 			nav.target_position = getRandomPoint()
-			timer.start(0.5)
+			timer.start(0.3)
 				
 func _on_navigation_agent_2d_navigation_finished() -> void:
 	if timer.is_stopped():
