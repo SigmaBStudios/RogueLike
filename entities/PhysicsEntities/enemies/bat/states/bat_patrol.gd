@@ -54,7 +54,7 @@ func processPhysics(delta : float) -> State:
 		
 	var next_point = nav.get_next_path_position()
 	var direction = global_position.direction_to(next_point)
-	nav.velocity = direction * parent.speed * 0.6
+	nav.velocity = direction * parent.stats_component.moveSpeed * 0.6
 	return null
 
 func _on_navigation_agent_2d_navigation_finished() -> void:
@@ -68,5 +68,4 @@ func changePoint() -> void:
 	nav.target_position = getRandomPoint()
 	
 func _on_attack_cooldown_timeout() -> void:
-	print("i can attack now")
 	shouldAttack = true

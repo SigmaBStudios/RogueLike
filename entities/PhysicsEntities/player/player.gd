@@ -2,15 +2,15 @@ class_name Player extends PhysicsEnity
 
 signal flaskUpdate
 
-@export var speed: float = 150
-@export var dashSpeed: float = 800
 @export var maxFlasks: int = 3
 @export var flasks: int = 3
 
 var dashDirection: Vector2 = Vector2.ZERO
 
 @export var hitbox_component: HitboxComponent
-@export var health_component: HealthComponent
+@onready var health_component: HealthComponent = $HealthComponent
+@onready var stats_component: StatsComponent = $StatsComponent
+@onready var attack_component: AttackComponent = $Weapon/AttackComponent
 
 @export var animation_player: AnimationPlayer
 @onready var stateManager: StateManager = $StateManager
@@ -20,6 +20,13 @@ func _init() -> void:
 	super("")
 
 func _ready() -> void:
+	
+	health_component.maxHealth = stats_component.maxHealth
+	health_component.health = stats_component.currentHealth
+	
+	attack_component.dmg = stats_component.attackDmg
+	attack_component.attackSpeed = stats_component.attackSpeed
+	
 	stateManager.initialize(self)
 
 func _unhandled_input(event: InputEvent) -> void:

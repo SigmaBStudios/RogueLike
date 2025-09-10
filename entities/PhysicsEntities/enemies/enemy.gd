@@ -1,7 +1,5 @@
 class_name Enemy extends PhysicsEnity
 
-@export var speed: float
-
 var target: PhysicsEnity
 var hitDirection: Vector2
 

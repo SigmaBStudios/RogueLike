@@ -43,7 +43,7 @@ func processPhysics(delta : float) -> State:
 		
 	var next_point = nav.get_next_path_position()
 	var direction = global_position.direction_to(next_point)
-	nav.velocity = direction * parent.speed * 0.6
+	nav.velocity = direction * parent.stats_component.moveSpeed * 0.6
 	return null
 	
 func processFrame(delta: float) -> State:

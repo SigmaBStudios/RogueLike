@@ -23,6 +23,6 @@ func processPhysics(delta: float) -> State:
 	if direction == Vector2.ZERO:
 		return idle
 	parent.dashDirection = direction
-	parent.velocity = direction * parent.speed
+	parent.velocity = direction * parent.stats_component.moveSpeed
 	parent.move_and_slide()
 	return null

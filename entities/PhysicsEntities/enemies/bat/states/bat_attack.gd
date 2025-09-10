@@ -33,7 +33,7 @@ func exitState() -> void:
 	
 func processPhysics(delta: float) -> State:
 	if !attack_duration.is_stopped():
-		parent.velocity = parent.hitDirection * 200
+		parent.velocity = parent.hitDirection * parent.stats_component.dashSpeed
 		parent.move_and_slide()
 		return null
 	return notAttacking

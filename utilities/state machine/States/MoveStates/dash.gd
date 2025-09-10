@@ -18,7 +18,7 @@ func exitState() -> void:
 
 func processPhysics(delta: float) -> State:
 	if !dash_duration.is_stopped():
-		parent.velocity = parent.dashDirection * 800
+		parent.velocity = parent.dashDirection * parent.stats_component.dashSpeed
 		parent.move_and_slide()
 		return null
 	return walk

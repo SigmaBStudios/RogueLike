@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://eantyxvqtsvp"]
+[gd_scene load_steps=18 format=3 uid="uid://eantyxvqtsvp"]
 
 [ext_resource type="Script" uid="uid://dkpf0l2tiyjxy" path="res://entities/PhysicsEntities/enemies/skeleton/skeleton.gd" id="1_3uwju"]
+[ext_resource type="PackedScene" uid="uid://dm7x85wadw7q1" path="res://utilities/Components/Stats Component/stats_component.tscn" id="2_l8bxd"]
 [ext_resource type="PackedScene" uid="uid://cert0vcaupr07" path="res://utilities/state machine/state_machine.tscn" id="2_u7hwo"]
 [ext_resource type="PackedScene" uid="uid://bk3vrw2l0qroq" path="res://entities/PhysicsEntities/enemies/skeleton/states/patrol.tscn" id="3_dtgnp"]
 [ext_resource type="PackedScene" uid="uid://cpd4mbft0e73" path="res://entities/PhysicsEntities/enemies/skeleton/states/chase.tscn" id="4_11284"]
@@ -92,7 +93,13 @@ script = ExtResource("1_3uwju")
 stateMachine = NodePath("StateMachine")
 animation_player = NodePath("AnimationPlayer")
 enemy_sprite = NodePath("EnemySprite")
-speed = 50.0
+
+[node name="StatsComponent" parent="." instance=ExtResource("2_l8bxd")]
+moveSpeed = 50.0
+maxHealth = 100.0
+currentHealth = 100.0
+attackDmg = 5.0
+attackSpeed = 0.3
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("startingState") instance=ExtResource("2_u7hwo")]
 startingState = NodePath("Patrol")
@@ -132,7 +139,6 @@ attack = NodePath("AttackComponent")
 chargeTime = 0.6
 
 [node name="AttackComponent" parent="Weapon" instance=ExtResource("8_df7lb")]
-dmg = 5.0
 attackSpeed = 0.3
 knockbackForce = 0
 

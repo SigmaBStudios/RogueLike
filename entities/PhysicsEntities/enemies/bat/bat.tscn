@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://c0kh1de3t1a6a"]
+[gd_scene load_steps=22 format=3 uid="uid://c0kh1de3t1a6a"]
 
 [ext_resource type="Script" uid="uid://qpwpuwshfym7" path="res://entities/PhysicsEntities/enemies/bat/bat.gd" id="1_7qpuv"]
 [ext_resource type="PackedScene" uid="uid://cert0vcaupr07" path="res://utilities/state machine/state_machine.tscn" id="2_kbot6"]
+[ext_resource type="PackedScene" uid="uid://dm7x85wadw7q1" path="res://utilities/Components/Stats Component/stats_component.tscn" id="2_ol77q"]
 [ext_resource type="PackedScene" uid="uid://gvxmjcbxy15e" path="res://entities/PhysicsEntities/enemies/bat/states/bat_patrol.tscn" id="3_r0mvk"]
 [ext_resource type="PackedScene" uid="uid://21te3i02dnhu" path="res://entities/PhysicsEntities/enemies/bat/states/bat_charge_attack.tscn" id="4_6yd01"]
 [ext_resource type="PackedScene" uid="uid://b2p5jbh3d4nvb" path="res://entities/PhysicsEntities/enemies/bat/states/bat_attack.tscn" id="5_06dbq"]
@@ -88,7 +89,14 @@ script = ExtResource("1_7qpuv")
 stateMachine = NodePath("StateMachine")
 animation_player = NodePath("AnimationPlayer")
 enemy_sprite = NodePath("EnemySprite")
-speed = 75.0
+
+[node name="StatsComponent" parent="." instance=ExtResource("2_ol77q")]
+moveSpeed = 75.0
+dashSpeed = 200.0
+maxHealth = 100.0
+currentHealth = 100.0
+attackDmg = 13.0
+attackSpeed = 0.5
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("startingState") instance=ExtResource("2_kbot6")]
 startingState = NodePath("BatPatrol")

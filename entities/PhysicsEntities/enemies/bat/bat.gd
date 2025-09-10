@@ -4,6 +4,9 @@ class_name Bat extends Enemy
 @export var animation_player: AnimationPlayer
 @export var enemy_sprite: Sprite2D
 @onready var hitbox_component: HitboxComponent = $HitboxComponent
+@onready var health_component: HealthComponent = $HealthComponent
+@onready var attack_component: AttackComponent = $AttackComponent
+@onready var stats_component: StatsComponent = $StatsComponent
 
 func setTarget(target: PhysicsEnity) -> void:
 	self.target = target
@@ -16,6 +19,12 @@ func _init() -> void:
 	super("bat")
 	
 func _ready() -> void:
+	health_component.maxHealth = stats_component.maxHealth
+	health_component.health = stats_component.currentHealth
+	
+	attack_component.dmg = stats_component.attackDmg
+	attack_component.attackSpeed = stats_component.attackSpeed
+	
 	stateMachine.initialize(self)
 
 func _unhandled_input(event: InputEvent) -> void:
