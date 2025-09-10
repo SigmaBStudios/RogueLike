@@ -32,9 +32,6 @@ var doorBitMap: Array = [0, 0, 0, 0] # 0 up, 1 down, 2 left, 3 right
 @onready var spawn_point_3: Marker2D = $spawnPoint3
 @onready var spawn_point_4: Marker2D = $spawnPoint4
 
-
-var item: Item
-
 func setSpawn(x, y) -> void:
 	spawnCordinates = Vector2(x * width + width / 2, y * height + height / 2)
 
@@ -87,9 +84,6 @@ func _ready() -> void:
 	if type != "spawn":
 		createEnemies()
 	
-	item = load("res://entities/StaticEntities/item/item.tscn").instantiate()
-	item.global_position = spawn_point_1.global_position
-	
 	player_detector.body_entered.connect(_on_room_entered)
 	player_detector.body_exited.connect(_on_room_exited)
 
@@ -99,7 +93,6 @@ func _on_removed(enemy: PhysicsEnity) -> void:
 		enemies.pop_at(index)
 
 func _on_room_entered(body: Node2D):
-	floor.entities.add_child.call_deferred(item)
 	if body is Player:
 		if type != "spawn":
 			for e in enemies:

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ch5rvuus7pcb2"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_disy1"]
+
+[node name="PlayerMenu" type="CanvasLayer"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("CompressedTexture2D_disy1")

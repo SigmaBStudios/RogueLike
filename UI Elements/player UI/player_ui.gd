@@ -5,6 +5,10 @@ extends CanvasLayer
 @onready var player_health_bar: ProgressBar = $HBoxContainer/HealthBarMargin/VBoxContainer/Control/playerHealthBar
 @onready var flasks: HBoxContainer = $HBoxContainer/HealthBarMargin/VBoxContainer/FlaskMargin/Flasks
 
+@onready var menu: TextureRect = $Menu
+@onready var stats_panel: TextureRect = $Menu/StatsPanel
+@onready var stats_button: Button = $Menu/StatsButton
+
 var empty_flask = load("res://assets/ui sprites/flask sprites/flask_0.png")
 var full_flask = load("res://assets/ui sprites/flask sprites/flask_1.png")
  
@@ -16,6 +20,17 @@ func _ready() -> void:
 	player.flaskUpdate.connect(_on_flask_update)
 	initHealthBar()
 	initFlasks()
+	
+func _process(delta: float) -> void:
+	if stats_button.is_hovered():
+		stats_panel.visible = true
+	else:
+		stats_panel.visible = false
+	
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("interact"):
+		menu.visible = !menu.visible
+		
 
 func initFlasks() -> void:
 	for i in range(flaskCount):
@@ -42,3 +57,4 @@ func _on_health_update(healthComponent: HealthComponent) -> void:
 		player_health_bar.value = healthComponent.health
 		var tween = get_tree().create_tween()
 		tween.tween_property(after_hit_effect, "value", healthComponent.health, 1).set_ease(Tween.EASE_OUT)
+	

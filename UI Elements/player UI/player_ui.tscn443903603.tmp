@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://do4pg6erljq5h"]
+[gd_scene load_steps=7 format=3 uid="uid://do4pg6erljq5h"]
 
 [ext_resource type="Script" uid="uid://d0yqqpa6t5kam" path="res://UI Elements/player UI/player_ui.gd" id="1_hsga7"]
 [ext_resource type="Texture2D" uid="uid://baxw0fx0r4k68" path="res://assets/ui sprites/hp_bar.png" id="2_sh6lv"]
 [ext_resource type="Texture2D" uid="uid://dc17g5l8dfgx8" path="res://assets/ui sprites/new_hotbar.png" id="3_sc4rw"]
-[ext_resource type="Texture2D" uid="uid://b6lyf61nosr6s" path="res://assets/ui sprites/fin_character_info.png" id="4_hsga7"]
-[ext_resource type="Texture2D" uid="uid://csbcj3yaewi3o" path="res://assets/ui sprites/stat_panel.png" id="5_ceo68"]
+[ext_resource type="Texture2D" uid="uid://dnn0tmhxqonx7" path="res://assets/ui sprites/player_menu.png" id="4_hsga7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hsga7"]
 bg_color = Color(0, 0.4, 0.52549, 1)
@@ -19,11 +18,12 @@ script = ExtResource("1_hsga7")
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -201.0
+offset_left = -194.0
 offset_right = 194.0
 offset_bottom = 32.0
 grow_horizontal = 2
 theme_override_constants/separation = 200
+alignment = 1
 
 [node name="HealthBarMargin" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -76,7 +76,6 @@ layout_mode = 2
 theme_override_constants/separation = -5
 
 [node name="hotBarMargin" type="MarginContainer" parent="HBoxContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 5
@@ -93,21 +92,3 @@ visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("4_hsga7")
-
-[node name="StatsButton" type="Button" parent="Menu"]
-layout_mode = 0
-offset_left = 458.0
-offset_top = 128.0
-offset_right = 466.0
-offset_bottom = 136.0
-scale = Vector2(0.5, 0.5)
-flat = true
-
-[node name="StatsPanel" type="TextureRect" parent="Menu"]
-visible = false
-layout_mode = 0
-offset_left = 345.0
-offset_top = 108.0
-offset_right = 385.0
-offset_bottom = 158.0
-texture = ExtResource("5_ceo68")
