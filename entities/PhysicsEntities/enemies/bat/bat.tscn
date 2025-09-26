@@ -93,8 +93,8 @@ enemy_sprite = NodePath("EnemySprite")
 [node name="StatsComponent" parent="." instance=ExtResource("2_ol77q")]
 moveSpeed = 75.0
 dashSpeed = 200.0
-maxHealth = 100.0
-currentHealth = 100.0
+maxHealth = 60.0
+currentHealth = 60.0
 attackDmg = 13.0
 attackSpeed = 0.5
 
@@ -149,8 +149,8 @@ healthComponent = NodePath("../HealthComponent")
 
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("8_k3s7r")
-maxHealth = 100.0
-health = 100.0
+maxHealth = 60.0
+health = 60.0
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("9_bucqf")]
 healthComponent = NodePath("../HealthComponent")

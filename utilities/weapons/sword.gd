@@ -12,6 +12,8 @@ class_name Sword extends Weapon
 
 var chargeStartTime: int
 
+var combo: int = 1
+
 var weaponSprites: Dictionary = {
 	1: "res://assets/weapons/swords/sword.png",
 	2: "res://assets/weapons/swords/rustySword.png"
@@ -39,7 +41,8 @@ func use(target) -> void:
 	marker.look_at(target)
 	animation.speed_scale = 1 / attack.attackSpeed
 	if attack.dmgType == 0:
-		animation.play("attack_" + attackType[attack.dmgType])
+		animation.play("attack_combo_" + attackType[attack.dmgType] + "_1")
+
 	else:
 		animation.play("attack_" + attackType[attack.dmgType])
 	

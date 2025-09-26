@@ -14,8 +14,11 @@ func damage(attack: AttackComponent):
 	if !disabled && healthComponent && attack.get_parent() != self.parent:
 		if !(parent is Enemy and source is Enemy):
 			healthComponent.updateHealth(attack.damage())
+			Global.camera.apply_shake()
 		
-			
+	if parent is Enemy:
+		var knockBackDir = (parent.global_position - source.global_position).normalized()
+		parent.applyKnockBack(knockBackDir, 300, 0.12)
 	if parent is Player && !disabled:
 		Global.camera.apply_shake()
 		disabled = true

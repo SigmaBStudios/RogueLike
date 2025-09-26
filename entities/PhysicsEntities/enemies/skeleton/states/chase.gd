@@ -39,13 +39,21 @@ func processPhysics(delta : float) -> State:
 		
 	if timer.is_stopped():
 		changePos()
-		
+
 	var next_point = nav.get_next_path_position()
 	var direction = global_position.direction_to(next_point)
-	nav.velocity = direction * parent.stats_component.moveSpeed * 0.6
+	if parent.knockBackTimer > 0:
+		parent.velocity = parent.knockBack
+		parent.knockBackTimer -= delta
+		if parent.knockBackTimer <= 0:
+			parent.knockBack = Vector2.ZERO
+	else:
+		nav.velocity = direction * parent.stats_component.moveSpeed * 0.6
 	return null
 	
 func processFrame(delta: float) -> State:
+	if parent.knockBackTimer > 0:
+		return null
 	if parent.velocity.x > 0:
 		if parent.enemy_sprite.scale.x == 1:
 			parent.enemy_sprite.scale.x = -1

@@ -26,3 +26,17 @@ func processPhysics(delta: float) -> State:
 	parent.velocity = direction * parent.stats_component.moveSpeed
 	parent.move_and_slide()
 	return null
+
+func processFrame(delta: float) -> State:
+	var stateManager = get_parent().get_parent()
+	if stateManager.stateMachines[1].currentState is Attack:
+		return null
+	var mousePos := get_global_mouse_position()
+	
+	if parent.global_position.x - mousePos.x < 0:
+		if parent.player_sprite.scale.x > 0:
+			parent.player_sprite.scale.x *= -1
+	elif parent.global_position.x - mousePos.x > 0:
+		if parent.player_sprite.scale.x < 0:
+			parent.player_sprite.scale.x *= -1
+	return null

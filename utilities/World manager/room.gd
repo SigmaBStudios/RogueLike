@@ -42,7 +42,7 @@ func setPosition(x, y) -> void:
 func createEnemies() -> void:
 	for i in range(enemyCount):
 		var enemy
-		if i < 2:
+		if i < 1:
 			enemy = load("res://entities/PhysicsEntities/enemies/bat/bat.tscn").instantiate()
 		else:
 			enemy = load("res://entities/PhysicsEntities/enemies/skeleton/skeleton.tscn").instantiate()
